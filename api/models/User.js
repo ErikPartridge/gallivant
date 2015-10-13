@@ -10,6 +10,10 @@ module.exports = {
   connection: 'userDatabase',
 
   attributes: {
+    autoPK: true,
+    autoCreatedAt: true,
+    autoUpdatedAt: true,
+    schema: true,
     privateKey : {
       type : 'string'
     },
@@ -18,7 +22,11 @@ module.exports = {
     },
     universalRead : {
       type : 'boolean'
-    }
+    },
+    transactions: {
+      collection: 'transaction',
+      via: 'user'
+    },
 
   },
 
