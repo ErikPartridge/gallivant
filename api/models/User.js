@@ -16,17 +16,21 @@ module.exports = {
     publicKey : {
       type : 'string'
     },
+    universalRead : {
+      type : 'boolean'
+    }
 
   },
 
   setApiKeys: function (options, cb) {
-    var crypto = require('crypto');
-    var base64url = require('base64url');
     User.findOne(options.id).exec(function (err, theUser) {
       if (err) return cb(err);
       if (!theUser) return cb(new Error('User not found.'));
       theUser.privateKey = ApiKey.privateKey();
       theUser.publicKey = ApiKey.publicKey();
+      var cache = require("memory-cache");
+      cache.put(theUser.id + "-pri", theUser.privateKey, 10000);
+      cache.put(theUser.id + "-pub", theUser.publicKey, 10000);
       theUser.save(cb);
     });
   }
