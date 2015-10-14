@@ -34,8 +34,8 @@ module.exports = {
     User.findOne(options.id).exec(function (err, theUser) {
       if (err) return cb(err);
       if (!theUser) return cb(new Error('User not found.'));
-      theUser.privateKey = ApiKey.privateKey();
-      theUser.publicKey = ApiKey.publicKey();
+      theUser.privateKey = ApiKey.privateKey({});
+      theUser.publicKey = ApiKey.publicKey({});
       var cache = require("memory-cache");
       cache.put(theUser.id + "-pri", theUser.privateKey, 10000);
       cache.put(theUser.id + "-pub", theUser.publicKey, 10000);

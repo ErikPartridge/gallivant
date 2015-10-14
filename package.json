@@ -29,12 +29,15 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js"
-  },
+   },
   "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/erik/gallivant.us.git"
   },
   "author": "erik",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "supertest": "^1.1.0"
+  }
 }

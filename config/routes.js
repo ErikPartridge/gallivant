@@ -41,5 +41,5 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-
+  'get /create' : 'UserController.create'
 };

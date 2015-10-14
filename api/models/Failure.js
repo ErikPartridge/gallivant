@@ -13,7 +13,8 @@ module.exports = {
     autoUpdatedAt: true,
     schema: true,
     ip : 'string',
-    user_id : 'string'
+    userId : 'string',
+    remarks : 'string'
   }
 
 };

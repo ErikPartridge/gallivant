@@ -1,7 +1,7 @@
 var crypto = require("crypto");
 var base64url = require("base64url");
 exports.privateKey = function(options){
-  var size = 100;
+  var size = 105;
   if(options.size){
     size = options.size;
   }
