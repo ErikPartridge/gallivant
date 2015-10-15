@@ -12,6 +12,7 @@ describe('FailureController', function() {
   });
 
   describe('#show()', function() {
+    Failure.create({ip : '0.0.2.2', userId : '120', remarks : 'test'});
     it('should respond with json', function (done) {
       request(sails.hooks.http.app)
         .get('/api/v1/failures/1')
