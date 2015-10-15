@@ -30,7 +30,7 @@ exports.check = function(req){
             });
             ret =  false;
           } else {
-            ret = true;
+            ret = user.id;
           }
         } else {
           ret = false;
