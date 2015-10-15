@@ -29,6 +29,7 @@ module.exports = {
     }
   },
 
+  // This is a rather expensive transaction. On a fast computer, this is ~50ms, on a slow computer, easily ~200ms
   setApiKeys: function (options, cb) {
     User.findOne(options.id).exec(function (err, theUser) {
       if (err) return cb(err);
