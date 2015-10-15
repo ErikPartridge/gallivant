@@ -29,7 +29,7 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
-    "test" : "mocha test/bootstrap.test.js test/unit/**/*.test.js --timeout 5s"
+    "test" : "mocha test/bootstrap.test.js test/unit/**/*.test.js --timeout 5s --slow 1"
    },
   "main": "app.js",
   "repository": {
