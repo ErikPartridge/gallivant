@@ -43,10 +43,9 @@ module.exports = {
    * @apiSuccess {String} remarks General remarks and logging info about the failure
    */
   show : function(req, res){
-    //This should only be accessible from localhost
     if(req.ip.indexOf("127.0.0.1") > -1){
-      Failure.find({id : req.param("id")}).exec(function(err, failure){
-        if(!err && !failure){
+      Failure.findOne({id : req.param("id")}).exec(function(err, failure){
+        if(!err && failure){
           res.json(failure);
         }else{
           winston.log('error', err);

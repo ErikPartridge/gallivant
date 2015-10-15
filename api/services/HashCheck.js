@@ -1,8 +1,12 @@
 var crypto = require("crypto");
 
+/**
+ * @returns The user id if it's valid, otherwise, returns false
+ * @param req
+ */
 exports.check = function(req){
   var millis = req.param("millis");
-  var current = Date.now().UTC();
+  var current = Date.now().UTC;
   if(millis < current && current - 600000 < millis) {
     User.findOne({id: req.userId}).exec(function (err, user) {
       if (!err) {

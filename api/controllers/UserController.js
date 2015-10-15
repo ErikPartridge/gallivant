@@ -12,6 +12,21 @@ module.exports = {
         res.json(user);
       });
     });
+  },
+  index : function(req, res){
+    //This should only be accessible from localhost
+    if(req.ip.indexOf("127.0.0.1") > -1){
+      User.find({}).exec(function(err, users){
+        if(!err){
+          res.json(users);
+        }else{
+          winston.log('error', err);
+        }
+      });
+    }else{
+      //Tell 'em no go
+      res.json(403, { error: 'You do not have sufficient credentials to view this resource' });
+    }
   }
 };
 
