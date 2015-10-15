@@ -1,6 +1,5 @@
 var request = require('supertest');
 var crypto = require("crypto");
-var base64url = require("base64url");
 
 describe('TransactionController', function() {
 
