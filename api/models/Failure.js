@@ -7,6 +7,7 @@
 
 module.exports = {
 
+  connection : 'failuresDatabase',
   attributes: {
     autoPK: true,
     autoCreatedAt: true,

@@ -79,6 +79,13 @@ module.exports.connections = {
     database : 'transactions'
   },
 
+  //redis, needs to be really fast
+  failuresDatabase : {
+    adapter : 'sails-redis',
+    host : 'localhost',
+    port: 6379
+  },
+
   /***************************************************************************
   *                                                                          *
   * PostgreSQL is another officially supported relational database.          *
