@@ -22,7 +22,7 @@ module.exports = {
         if(!err){
           res.json(failures);
         }else{
-          winston.log('error', err);
+          winston.log('An error occurred', err);
         }
       });
     }else{
@@ -48,7 +48,8 @@ module.exports = {
         if(!err && failure){
           res.json(failure);
         }else{
-          winston.log('error', err);
+          if(err)
+            winston.log('error', err);
           res.json(404, {error : 'No such failure with that id'});
         }
       });

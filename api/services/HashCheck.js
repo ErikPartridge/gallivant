@@ -14,6 +14,7 @@ exports.check = function(req){
         var hmac = crypto.createHmac("sha512", privateKey);
         hmac.update(millis + "." + user.publicKey + "." + req.method + "." + req.path.toUpperCase());
         var hash = hmac.digest("hex");
+        console.log(req.path.toUpperCase());
         if (hash !== req.param("hash")) {
           Failure.create({
             ip: req.ip,
