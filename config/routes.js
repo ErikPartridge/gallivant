@@ -42,5 +42,5 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   'get /create' : 'UserController.create',
-  'get /v1/api/'
+  'get /v1/api/failures' : 'FailureController.index'
 };
