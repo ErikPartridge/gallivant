@@ -12,15 +12,6 @@ describe('FailureController', function() {
   });
 
   describe('#show()', function() {
-    it('should respond with json', function (done) {
-      request(sails.hooks.http.app)
-        .get('/api/v1/failures/1')
-        .expect('Content-Type', /json/)
-        .expect(200, done)
-    });
-  });
-
-  describe('#show()', function() {
     it('should respond with a json error', function (done) {
       request(sails.hooks.http.app)
         .get('/api/v1/failures/321020123001')
