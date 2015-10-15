@@ -1,5 +1,6 @@
 var request = require('supertest');
 var crypto = require("crypto");
+var base64url = require("base64url");
 
 describe('TransactionController', function() {
 
@@ -7,15 +8,16 @@ describe('TransactionController', function() {
     it('should respond with json', function (done) {
       User.create({privateKey : '', publicKey : '', universalRead : true}).exec(function(err, user){
         User.setApiKeys({id : user.id}, function(err, resu){
-          User.find({id : user.id}).exec(function(err, theUser){
-            var milli = Date.now().UTC;
-            var privateKey = user.privateKey;
+          User.findOne({id : user.id}).exec(function(err, theUser){
+            var milliseconds = Date.now();
+            var privateKey = theUser.privateKey;
             var hmac = crypto.createHmac("sha512", privateKey);
-            hmac.update(milli + "." + theUser.publicKey + "." + "GET" + "." + "/API/V1/TRANSACTIONS");
+            hmac.update(milliseconds + "." + theUser.publicKey + "." + "GET" + "." + "/API/V1/TRANSACTIONS");
             var hex = hmac.digest("hex");
             request(sails.hooks.http.app)
               .get('/api/v1/transactions')
-              .send({hash : hex, millis : milli, userId : user.id})
+              .query({millis : milliseconds})
+              .query({hash : hex, userId : theUser.id})
               .expect('Content-Type', /json/)
               .expect(200, done);
           });

@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing Transactions
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+var HashCheck = require('../services/HashCheck.js');
 module.exports = {
   /**
    * @api {get} /api/v1/transactions List user's transactions
@@ -23,6 +23,7 @@ module.exports = {
 	index : function(req, res){
     var check = HashCheck.check(req);
     // This won't be true, but it will be something, usually a string or int
+    console.log(check);
     if(check){
       var count = 100;
       if(req.param("count") && !isNan(req.param("count"))){
