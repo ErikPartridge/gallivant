@@ -26,8 +26,7 @@ module.exports = {
     transactions: {
       collection: 'transaction',
       via: 'user'
-    },
-
+    }
   },
 
   setApiKeys: function (options, cb) {
