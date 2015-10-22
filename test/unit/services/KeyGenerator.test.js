@@ -1,4 +1,4 @@
-var ApiKey = require('../../../api/services/ApiKey.js');
+var ApiKey = require('../../../api/services/KeyGenerator.js');
 
 describe('ApiKeyService', function() {
 

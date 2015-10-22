@@ -14,11 +14,9 @@ module.exports = {
     autoCreatedAt: true,
     autoUpdatedAt: true,
     schema: true,
-    privateKey : {
-      type : 'string'
-    },
-    publicKey : {
-      type : 'string'
+    apiKeys : {
+      collection :'apikey',
+      via: 'user'
     },
     universalRead : {
       type : 'boolean'
@@ -26,20 +24,36 @@ module.exports = {
     transactions: {
       collection: 'transaction',
       via: 'user'
+    },
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.apiKeys;
+      return obj;
     }
   },
 
+
   // This is a rather expensive transaction. On a fast computer, this is ~50ms, on a slow computer, easily ~200ms
-  setApiKeys: function (options, cb) {
+  addApiKey: function (options, cb) {
     User.findOne(options.id).exec(function (err, theUser) {
       if (err) return cb(err);
       if (!theUser) return cb(new Error('User not found.'));
-      theUser.privateKey = ApiKey.privateKey({});
-      theUser.publicKey = ApiKey.publicKey({});
-      var cache = require("memory-cache");
-      cache.put(theUser.id + "-pri", theUser.privateKey, 10000);
-      cache.put(theUser.id + "-pub", theUser.publicKey, 10000);
-      theUser.save(cb);
+      ApiKey.create({user : theUser}).exec(function(err, res){
+        if(err)
+          console.log(err);
+        else{
+          var cache = require("memory-cache");
+          cache.put(theUser.id + "-pri", res.privateKey, 10000);
+          cache.put(theUser.id + "-pub", res.publicKey, 10000);
+          theUser.transactions.add(res);
+          theUser.save(cb);
+        }
+      });
+    });
+  },
+  deleteApiKey : function(options, cb){
+    ApiKey.destroy({id: options.id}).exec(function(err, theKey){
+
     });
   }
 };

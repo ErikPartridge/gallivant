@@ -18,9 +18,10 @@ describe('UserModel', function() {
         res.on('end', function(){
           var response = JSON.parse(body);
           var userId = response["id"];
-          User.setApiKeys({id : userId}, function(err,res){});
-          User.findOne({id: userId}).exec(function(err, user){
-            if(user.publicKey.length === 80 && user.privateKey.length === 140){
+          User.addApiKey({id : userId}, function(err,res){});
+          User.find({id: userId}).populate('apiKeys').exec(function(err, keys){
+            var keyOne = keys[0]['apiKeys'][0];
+            if(keyOne.publicKey.length === 80 && keyOne.privateKey.length === 140){
               done();
             }else{
               throw err;
@@ -44,7 +45,7 @@ describe('UserModel', function() {
         res.on('end', function(){
           var response = JSON.parse(body);
           var userId = response["id"];
-          User.setApiKeys({id : userId}, function(err,res){});
+          User.addApiKey({id : userId}, function(err,res){});
           var cache = require("memory-cache");
           User.findOne({id: userId}).exec(function(err, user){
             if(cache.get(user.id + "-pub").length === 80 && cache.get(user.id + "-pri").length === 140){

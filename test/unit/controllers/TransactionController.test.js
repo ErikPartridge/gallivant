@@ -6,7 +6,7 @@ describe('TransactionController', function() {
   describe('#index()', function() {
     it('should respond with json', function (done) {
       User.create({privateKey : '', publicKey : '', universalRead : true}).exec(function(err, user){
-        User.setApiKeys({id : user.id}, function(err, resu){
+        User.addApiKey({id : user.id}, function(err, resu){
           User.findOne({id : user.id}).exec(function(err, theUser){
             var milliseconds = Date.now();
             var privateKey = theUser.privateKey;
